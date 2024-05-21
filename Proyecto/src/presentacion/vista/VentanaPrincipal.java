@@ -1,11 +1,5 @@
 package presentacion.vista;
-
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -14,43 +8,93 @@ import javax.swing.SwingConstants;
 
 public class VentanaPrincipal extends JFrame {
 
-	private JPanel contentPane;
+	private static final long serialVersionUID = 1L;
+	private JMenuBar menuBar;
+	private JMenu mnPersonas;
+	private JMenuItem menuAgregar;
+	private JMenuItem menuModificar;
+	private JMenuItem menuEliminar;
+	private JMenuItem menuListar;
+	
 
 	public VentanaPrincipal() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		
-		JMenuBar menuBar = new JMenuBar();
+		menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
-		JMenu mnPersona = new JMenu("Persona");
-		mnPersona.setFont(new Font("Segoe UI", Font.BOLD, 12));
-		menuBar.add(mnPersona);
+		mnPersonas = new JMenu("Persona");
+		mnPersonas.setFont(new Font("Segoe UI", Font.BOLD, 12));
+		menuBar.add(mnPersonas);
 		
-		JMenuItem MenuItemAgregar = new JMenuItem("Agregar");
-		MenuItemAgregar.setHorizontalAlignment(SwingConstants.LEFT);
-		MenuItemAgregar.setFont(new Font("Segoe UI", Font.BOLD, 12));
-		mnPersona.add(MenuItemAgregar);
+		menuAgregar = new JMenuItem("Agregar");
+		menuAgregar.setHorizontalAlignment(SwingConstants.LEFT);
+		menuAgregar.setFont(new Font("Segoe UI", Font.BOLD, 12));
+		mnPersonas.add(menuAgregar);
 		
-		JMenuItem MenuItemModificar = new JMenuItem("Modificar");
-		MenuItemModificar.setFont(new Font("Segoe UI", Font.BOLD, 12));
-		mnPersona.add(MenuItemModificar);
+		menuModificar = new JMenuItem("Modificar");
+		menuModificar.setFont(new Font("Segoe UI", Font.BOLD, 12));
+		mnPersonas.add(menuModificar);
 		
-		JMenuItem MenuItemEliminar = new JMenuItem("Eliminar");
-		MenuItemEliminar.setFont(new Font("Segoe UI", Font.BOLD, 12));
-		mnPersona.add(MenuItemEliminar);
+		menuEliminar = new JMenuItem("Eliminar");
+		menuEliminar.setFont(new Font("Segoe UI", Font.BOLD, 12));
+		mnPersonas.add(menuEliminar);
 		
-		JMenuItem MenuItemListar = new JMenuItem("Listar");
-		MenuItemListar.setFont(new Font("Segoe UI", Font.BOLD, 12));
-		mnPersona.add(MenuItemListar);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
+		menuListar = new JMenuItem("Listar");
+		menuListar.setFont(new Font("Segoe UI", Font.BOLD, 12));
+		mnPersonas.add(menuListar);
 	}
 	
-	public void cambiarVisibilidad(boolean estado) {
-        setVisible(true);
-    }
+	//getters y setters Menu Persona
+	public JMenu getMnPersonas() {
+		return mnPersonas;
+	}
+
+	public void setJMenu(JMenu mnPersonas) {
+		this.mnPersonas = mnPersonas;
+	}
+	
+	//getters y setters menu Agregar
+	
+	public JMenuItem getMnAgregar() {
+		return menuAgregar;
+	}
+
+	public void setJMenuAgregar(JMenu mnAgregar) {
+		this.menuAgregar = mnAgregar;
+	}
+	
+	//getters y setters menu Modificar
+	public JMenuItem getMenuModificar() {
+		return menuModificar;
+	}
+
+	public void setMenuModificar(JMenuItem menuModificar) {
+		this.menuModificar = menuModificar;
+	}
+	
+	//getters y setters menu Eliminar
+
+	public JMenuItem getMenuEliminar() {
+		return menuEliminar;
+	}
+
+	public void setMenuEliminar(JMenuItem menuEliminar) {
+		this.menuEliminar = menuEliminar;
+	}
+	
+	
+	//getters y setters menu Listar
+	
+	public JMenuItem getMenuListar() {
+		return menuListar;
+	}
+
+	public void setMenuListar(JMenuItem menuListar) {
+		this.menuListar = menuListar;
+	}
+	
+
 
 }

@@ -1,4 +1,6 @@
 package main;
+import dao.PersonaDao;
+import entidad.Persona;
 import presentacion.controlador.Controlador;
 import presentacion.vista.VentanaPrincipal;
 
@@ -8,8 +10,9 @@ public class Principal {
 		VentanaPrincipal ventana = new VentanaPrincipal();
 		Controlador controlador = new Controlador(ventana);
 		controlador.inicializar();
-		
+	
+    }
 
 	}
 
-}
+

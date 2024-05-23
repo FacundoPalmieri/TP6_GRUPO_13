@@ -61,7 +61,7 @@ public class PersonaDao {
 			while(rs.next()) {
 				Persona p = new Persona();
 				p.setNombre(rs.getString("Nombre"));
-				p.setApellido(rs.getNString("Aoellido"));
+				p.setApellido(rs.getNString("Apellido"));
 				p.setDni(rs.getString("Dni"));
 				listaPersonas.add(p);
 			}

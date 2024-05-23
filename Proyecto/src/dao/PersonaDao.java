@@ -23,7 +23,7 @@ public class PersonaDao {
 	
 	}
 	
-	public int agregarPersona(Persona persona) {
+	public int agregarPersona(Persona persona) throws SQLException{
 	    String query = "INSERT INTO Personas (Nombre, Apellido, Dni) VALUES ('"+persona.getNombre()+"','"+persona.getApellido()+"','"+persona.getDni()+"')";
 	    Connection cn = null;
 	    int filas = 0;
@@ -36,6 +36,7 @@ public class PersonaDao {
 	     
 	    } catch (SQLException e) {
 	        e.printStackTrace();
+	        throw e;
 	    } finally {
 	        if (cn != null) {
 	            try {

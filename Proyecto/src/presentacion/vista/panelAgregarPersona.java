@@ -10,6 +10,9 @@ import entidad.Persona;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
 public class panelAgregarPersona extends JPanel {
@@ -62,6 +65,14 @@ public class panelAgregarPersona extends JPanel {
 		textFieldDni.setBounds(190, 64, 86, 20);
 		panel.add(textFieldDni);
 		textFieldDni.setColumns(10);
+		textFieldDni.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isDigit(c)) {
+                    e.consume();
+                }
+			}
+		});
 		
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.addActionListener(new ActionListener() {
@@ -94,7 +105,13 @@ public class panelAgregarPersona extends JPanel {
 		        	} else {
 		        	   throw new Exception("Debe completar el DNI");
 		        	} 
-				
+			} catch (SQLException ex) {
+	                   ex.printStackTrace();
+	                   if (ex.getErrorCode() == 1062) { // Código de error de clave duplicada en MySQL
+	                       JOptionPane.showMessageDialog(null, "DNI ya registrado en Base de Datos");
+	                   } else {
+	                       JOptionPane.showMessageDialog(null, "Error de base de datos: " + ex.getMessage());
+	                   }
 			   } catch (Exception ex) {
 			          JOptionPane.showMessageDialog(null, ex.getMessage());
 			        }

@@ -20,6 +20,7 @@ public class VentanaPrincipal extends JFrame {
 	public VentanaPrincipal() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
+		setTitle("Programa");
 		
 		menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -44,6 +45,8 @@ public class VentanaPrincipal extends JFrame {
 		menuListar = new JMenuItem("Listar");
 		menuListar.setFont(new Font("Segoe UI", Font.BOLD, 12));
 		mnPersonas.add(menuListar);
+		
+		setLocationRelativeTo(null);
 	}
 	
 	//getters y setters Menu Persona

@@ -2,8 +2,15 @@ package presentacion.vista;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+
+import dao.PersonaDao;
+import entidad.Persona;
+
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class panelAgregarPersona extends JPanel {
 
@@ -11,6 +18,8 @@ public class panelAgregarPersona extends JPanel {
 	private JTextField textFieldNombre;
 	private JTextField textFieldApellido;
 	private JTextField textFieldDni;
+	private Persona persona = new Persona();
+	private PersonaDao personaDao = new PersonaDao();
 	
 	 public panelAgregarPersona() {
 			
@@ -55,6 +64,42 @@ public class panelAgregarPersona extends JPanel {
 		textFieldDni.setColumns(10);
 		
 		JButton btnAceptar = new JButton("Aceptar");
+		btnAceptar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			try {
+				if(!(textFieldNombre.getText().isEmpty() || textFieldApellido.getText().isEmpty() || textFieldDni.getText().isEmpty())) {
+					persona.setNombre(textFieldNombre.getText());
+					persona.setApellido(textFieldApellido.getText());
+					persona.setDni(textFieldDni.getText());
+					
+					int filas = personaDao.agregarPersona(persona);
+					
+					if(filas == 1) {
+					JOptionPane.showMessageDialog(null, "Persona agregada correctamente");
+					  textFieldNombre.setText("");
+					  textFieldApellido.setText("");
+					  textFieldDni.setText("");
+						
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "No se pudo agregar la persona");
+					}	
+		              
+			    } else if(textFieldNombre.getText().isEmpty()) {
+		            throw new Exception("Debe completar el nombre");
+		            
+		          } else if (textFieldApellido.getText().isEmpty()) {
+		        		throw new Exception("Debe completar el apellido");
+		        		
+		        	} else {
+		        	   throw new Exception("Debe completar el DNI");
+		        	} 
+				
+			   } catch (Exception ex) {
+			          JOptionPane.showMessageDialog(null, ex.getMessage());
+			        }
+			}
+		});
 		btnAceptar.setBounds(110, 102, 89, 23);
 		panel.add(btnAceptar);
 

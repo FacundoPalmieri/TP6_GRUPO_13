@@ -22,18 +22,17 @@ public class PersonaDao {
 	}
 	
 	public int agregarPersona(Persona persona) {
-	    String query = "INSERT INTO Personas (Dni, Nombre, Apellido) VALUES (?, ?, ?)";
+	    String query = "INSERT INTO Personas (Nombre, Apellido, Dni) VALUES ('"+persona.getNombre()+"','"+persona.getApellido()+"','"+persona.getDni()+"')";
 	    Connection cn = null;
 	    int filas = 0;
+	    
 
 	    try {
 	        cn = DriverManager.getConnection(host + dbName, user, pass);
-	        PreparedStatement statement = cn.prepareStatement(query);
-	        statement.setString(1, persona.getDni());
-	        statement.setString(2, persona.getNombre());
-	        statement.setString(3, persona.getApellido());
+	        Statement st = cn.createStatement();
+	        filas = st.executeUpdate(query);
 
-	        filas = statement.executeUpdate();
+	     
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	    } finally {

@@ -10,7 +10,13 @@ public class Persona {
 		
 	}
 	
+	public Persona(String dni, String apellido,String nombre){
+		this.dni=dni;
+		this.apellido=apellido;
+		this.nombre=nombre;
+	}
 	
+
 	public String getDni() {
 		return dni;
 	}
@@ -36,4 +42,8 @@ public class Persona {
 	}
 	
 	
+	@Override
+	public String toString() {
+		return getNombre()+" "+getApellido()+" "+getDni();
+	}
 }

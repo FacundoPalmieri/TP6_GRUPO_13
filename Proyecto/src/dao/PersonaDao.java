@@ -4,8 +4,10 @@ package dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import entidad.Persona;
 
@@ -26,7 +28,6 @@ public class PersonaDao {
 	    Connection cn = null;
 	    int filas = 0;
 	    
-
 	    try {
 	        cn = DriverManager.getConnection(host + dbName, user, pass);
 	        Statement st = cn.createStatement();
@@ -45,5 +46,30 @@ public class PersonaDao {
 	        }
 	    }
 	    return filas;
+	}
+	
+	
+	public ArrayList<Persona> listarPersonas(String dni) {
+		ArrayList<Persona> listaPersonas = new ArrayList<Persona>();
+		String query="SELECT * FROM personas";
+		Connection cn= null;
+		
+		try {
+			cn = DriverManager.getConnection(host + dbName, user, pass);
+			Statement st = cn.createStatement();
+			ResultSet rs = st.executeQuery(query);
+			while(rs.next()) {
+				Persona p = new Persona();
+				p.setNombre(rs.getString("Nombre"));
+				p.setApellido(rs.getNString("Aoellido"));
+				p.setDni(rs.getString("Dni"));
+				listaPersonas.add(p);
+			}
+			
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		return listaPersonas;
 	}
 }

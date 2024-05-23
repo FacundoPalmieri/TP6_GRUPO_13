@@ -1,6 +1,4 @@
 package main;
-import dao.PersonaDao;
-import entidad.Persona;
 import presentacion.controlador.Controlador;
 import presentacion.vista.VentanaPrincipal;
 

@@ -14,6 +14,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
+import javax.swing.JList;
 
 public class panelEliminarPersona extends JPanel {
 
@@ -35,8 +36,16 @@ public class panelEliminarPersona extends JPanel {
 		panel.setLayout(null);
 		
 		JLabel lblNombre = new JLabel("ELIMINAR USUARIOS");
-		lblNombre.setBounds(174, 11, 104, 14);
+		lblNombre.setBounds(63, 11, 161, 14);
 		panel.add(lblNombre);
+		
+		JList list = new JList();
+		list.setBounds(26, 36, 252, 121);
+		panel.add(list);
+		
+		JButton btnEliminar = new JButton("ELIMINAR");
+		btnEliminar.setBounds(109, 168, 89, 23);
+		panel.add(btnEliminar);
 
 	}
 	

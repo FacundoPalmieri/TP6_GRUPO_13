@@ -22,6 +22,7 @@ public class Controlador  implements ActionListener  {
 		
 		//Eventos menu del Frame principal llamado Ventana
 		this.ventanaPrincipal.getMnAgregar().addActionListener(a->EventoClickMenu_AbrirPanel_AgregarPersona(a));
+		this.ventanaPrincipal.getMenuEliminar().addActionListener(s->EventoClickMenu_AbrirPanel_EliminarPersona(s));
 		
 	}
 	
@@ -30,6 +31,13 @@ public class Controlador  implements ActionListener  {
 	{		
 		ventanaPrincipal.getContentPane().removeAll();
 		ventanaPrincipal.getContentPane().add(pnlAgregarPersona);
+		ventanaPrincipal.getContentPane().repaint();
+		ventanaPrincipal.getContentPane().revalidate();
+	}
+	public void  EventoClickMenu_AbrirPanel_EliminarPersona(ActionEvent s)
+	{		
+		ventanaPrincipal.getContentPane().removeAll();
+		ventanaPrincipal.getContentPane().add(pnlEliminarPersona);
 		ventanaPrincipal.getContentPane().repaint();
 		ventanaPrincipal.getContentPane().revalidate();
 	}

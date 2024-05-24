@@ -5,7 +5,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import dao.PersonaDao;
+import daoImpl.PersonaDaoImpl;
 import entidad.Persona;
 
 import javax.swing.JButton;

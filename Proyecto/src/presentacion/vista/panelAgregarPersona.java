@@ -5,7 +5,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import dao.PersonaDao;
+import daoImpl.PersonaDaoImpl;
 import entidad.Persona;
 
 import javax.swing.JButton;
@@ -22,7 +22,7 @@ public class panelAgregarPersona extends JPanel {
 	private JTextField textFieldApellido;
 	private JTextField textFieldDni;
 	private Persona persona = new Persona();
-	private PersonaDao personaDao = new PersonaDao();
+	private PersonaDaoImpl personaDao = new PersonaDaoImpl();
 	
 	 public panelAgregarPersona() {
 			

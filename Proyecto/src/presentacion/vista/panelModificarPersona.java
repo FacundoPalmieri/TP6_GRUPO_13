@@ -15,6 +15,8 @@ import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
+
+
 public class panelModificarPersona extends JPanel {
 
 	

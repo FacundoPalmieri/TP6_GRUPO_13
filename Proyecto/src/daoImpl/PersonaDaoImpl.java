@@ -14,8 +14,9 @@ public class PersonaDaoImpl implements IPersonaDao {
 	private String host = "jdbc:mysql://localhost:3306/";
 	private String user ="root";
 	//Comentar el que corresponda
-	private String pass = "root";
+//	private String pass = "root";
 	//private String pass = "ROOT";
+	private String pass = "admin";
 	private String dbName = "bdpersonas";
 
 	public void PersonaDao()
@@ -62,7 +63,7 @@ public class PersonaDaoImpl implements IPersonaDao {
 			while(rs.next()) {
 				Persona p = new Persona();
 				p.setNombre(rs.getString("Nombre"));
-				p.setApellido(rs.getNString("Apellido"));
+				p.setApellido(rs.getString("Apellido"));
 				p.setDni(rs.getString("Dni"));
 				listaPersonas.add(p);
 			}
@@ -80,6 +81,13 @@ public class PersonaDaoImpl implements IPersonaDao {
 		return 0;
 	}
 
+	
+	public int ModificarPersona(Persona persona) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	
 	@Override
 	public boolean EliminarPersona(Persona personaDelete) {
 		// TODO Auto-generated method stub

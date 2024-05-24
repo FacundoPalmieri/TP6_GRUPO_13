@@ -1,47 +1,50 @@
 package presentacion.vista;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 import daoImpl.PersonaDaoImpl;
 import entidad.Persona;
 
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.sql.SQLException;
-import java.awt.event.ActionEvent;
-
 public class panelListarPersona extends JPanel {
 
-	
-	
-	 public panelListarPersona() {
-			
-		super();
-		initialize();
-	}
+    private JTable table;
+    private DefaultTableModel tableModel;
+    private PersonaDaoImpl personaDao;
 
-	private void initialize() {
-		this.setBounds(100, 100, 514, 455);
-		this.setLayout(null);
-		
-		JPanel panel = new JPanel();
-		panel.setBounds(60, 22, 444, 227);
-		this.add(panel);
-		panel.setLayout(null);
-		
-		JLabel lblNombre = new JLabel("LISTAR PERSONAS");
-		lblNombre.setBounds(174, 11, 104, 14);
-		panel.add(lblNombre);
+    public panelListarPersona() {
+        super();
+        initialize();
+        personaDao = new PersonaDaoImpl(); 
+        cargarPersonas();
+    }
 
-	}
-	
-	public void show()
-	{
-		this.setVisible(true);
-	}
+    private void initialize() {
+        this.setBounds(100, 100, 514, 455);
+        this.setLayout(null);
+
+
+        tableModel = new DefaultTableModel(new Object[]{"Nombre", "Apellido", "DNI"}, 0);
+
+        table = new JTable(tableModel);
+
+        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setBounds(60, 50, 444, 227);
+        this.add(scrollPane);
+    }
+
+    private void cargarPersonas() {
+        List<Persona> personas = personaDao.listarPersonas("");
+        for (Persona persona : personas) {
+            tableModel.addRow(new Object[]{persona.getNombre(), persona.getApellido(), persona.getDni()});
+        }
+    }
+
+    public void show() {
+        this.setVisible(true);
+    }
 }

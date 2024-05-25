@@ -11,13 +11,14 @@ public class panelListarPersona extends JPanel {
 
     private static final long serialVersionUID = 1L;
     private JTable table;
-    private DefaultTableModel tableModel;
+    public DefaultTableModel tableModel;
 
     public panelListarPersona() {
         super();
         initialize();
     }
 
+    
     private void initialize() {
         this.setBounds(100, 100, 514, 455);
         this.setLayout(null);
@@ -30,13 +31,7 @@ public class panelListarPersona extends JPanel {
         this.add(scrollPane);
     }
 
-    public void cargarPersonas(ArrayList<Persona> personas) {
-        tableModel.setRowCount(0); 
-        for (Persona persona : personas) {
-            tableModel.addRow(new Object[]{persona.getNombre(), persona.getApellido(), persona.getDni()});
-        }
-    }
-
+    
     public void show() {
         this.setVisible(true);
     }

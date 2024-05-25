@@ -14,9 +14,9 @@ public class PersonaDaoImpl implements IPersonaDao {
 	private String host = "jdbc:mysql://localhost:3306/";
 	private String user ="root";
 	//Comentar el que corresponda
-    private String pass = "root";
+//    private String pass = "root";
 	//private String pass = "ROOT";
-	//private String pass = "admin";
+	private String pass = "admin";
 	private String dbName = "bdpersonas";
 
 	public  void PersonaDaoImpl()

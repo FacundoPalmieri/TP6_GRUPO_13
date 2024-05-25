@@ -51,6 +51,7 @@ public class Controlador implements ActionListener  {
 	//EventoClickMenu abrir PanelAgregarPersonas
 	public void  EventoClickMenu_AbrirPanel_AgregarPersona(ActionEvent a)
 	{		
+
 		ventanaPrincipal.getContentPane().removeAll();
 		ventanaPrincipal.getContentPane().add(pnlAgregarPersona);
 		ventanaPrincipal.getContentPane().repaint();
@@ -75,7 +76,9 @@ public class Controlador implements ActionListener  {
 	
 	public void  EventoClickMenu_AbrirPanel_ListarPersona(ActionEvent s)
 	{		
-		listaPersonas=personaNegocio.ListarPersonas();
+		  listaPersonas = personaNegocio.ListarPersonas();
+		 pnlListarPersona.cargarPersonas(listaPersonas);
+	//	listaPersonas=personaNegocio.ListarPersonas();
 		ventanaPrincipal.getContentPane().removeAll();
 		ventanaPrincipal.getContentPane().add(pnlListarPersona);
 		ventanaPrincipal.getContentPane().repaint();
@@ -92,10 +95,14 @@ public class Controlador implements ActionListener  {
 	        if (eliminado) {
 	        	JOptionPane.showMessageDialog(null, "La persona ha sido eliminada correctamente.");
 	        	pnlEliminarPersona.cargarPersonas();
+	            listaPersonas = personaNegocio.ListarPersonas(); // ***Agregar esta línea***
+	            pnlListarPersona.cargarPersonas(listaPersonas); 
+	      //  	pnlListarPersona.cargarPersonas();
 	        } else {
 	            System.out.println("Error al eliminar la persona.");
 	        }
 	        
+  
 	    }
 
 

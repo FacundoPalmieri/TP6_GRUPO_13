@@ -14,17 +14,17 @@ public class PersonaDaoImpl implements IPersonaDao {
 	private String host = "jdbc:mysql://localhost:3306/";
 	private String user ="root";
 	//Comentar el que corresponda
-//    private String pass = "root";
+    //private String pass = "root";
 	//private String pass = "ROOT";
-	private String pass = "admin";
+	private String pass = "root";
 	private String dbName = "bdpersonas";
 
-	public  void PersonaDaoImpl()
+	public PersonaDaoImpl()
 	{
 	
 	}
 	
-	public int agregarPersona(Persona persona) throws SQLException{
+	public int AgregarPersona(Persona persona) throws SQLException{
 	    String query = "INSERT INTO Personas (Nombre, Apellido, Dni) VALUES ('"+persona.getNombre()+"','"+persona.getApellido()+"','"+persona.getDni()+"')";
 	    Connection cn = null;
 	    int filas = 0;
@@ -51,7 +51,7 @@ public class PersonaDaoImpl implements IPersonaDao {
 	}
 	
 	
-	public ArrayList<Persona> listarPersonas() {
+	public ArrayList<Persona> ListarPersonas() {
         ArrayList<Persona> listaPersonas = new ArrayList<>();
         String query = "SELECT * FROM personas";
         Connection cn = null;
@@ -80,11 +80,6 @@ public class PersonaDaoImpl implements IPersonaDao {
         return listaPersonas;
     }
 
-	@Override
-	public int AgregarPersona(Persona persona) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 	
 	public int ModificarPersona(Persona persona) {
@@ -114,12 +109,6 @@ public class PersonaDaoImpl implements IPersonaDao {
 		            }
 		        }
 		    }
-	}
-
-	@Override
-	public ArrayList<Persona> ListarPersonas() {
-		// TODO Auto-generated method stub
-		return listarPersonas();
 	}
 
 }

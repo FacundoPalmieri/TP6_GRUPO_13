@@ -101,7 +101,7 @@ public class panelAgregarPersona extends JPanel {
 					persona.setApellido(textFieldApellido.getText());
 					persona.setDni(textFieldDni.getText());
 					
-					int filas = personaDao.agregarPersona(persona);
+					int filas = personaDao.AgregarPersona(persona);
 					
 					if(filas == 1) {
 					JOptionPane.showMessageDialog(null, "Persona agregada correctamente");

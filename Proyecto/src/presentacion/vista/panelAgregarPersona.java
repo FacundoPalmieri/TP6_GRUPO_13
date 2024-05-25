@@ -56,10 +56,28 @@ public class panelAgregarPersona extends JPanel {
 		panel.add(textFieldNombre);
 		textFieldNombre.setColumns(10);
 		
+		textFieldNombre.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isLetter(c) && !Character.isWhitespace(c)) {
+                    e.consume();
+                }
+            }
+        });
+		
 		textFieldApellido = new JTextField();
 		textFieldApellido.setBounds(190, 35, 86, 20);
 		panel.add(textFieldApellido);
 		textFieldApellido.setColumns(10);
+		
+		textFieldApellido.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isLetter(c) && !Character.isWhitespace(c)) {
+                    e.consume();
+                }
+            }
+        });
 		
 		textFieldDni = new JTextField();
 		textFieldDni.setBounds(190, 64, 86, 20);

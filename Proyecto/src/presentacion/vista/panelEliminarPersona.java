@@ -2,25 +2,14 @@ package presentacion.vista;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-
-import daoImpl.PersonaDaoImpl;
-import entidad.Persona;
-
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.sql.SQLException;
-import java.awt.event.ActionEvent;
 import javax.swing.JList;
 
 public class panelEliminarPersona extends JPanel {
 
-	
-	
-	 public panelEliminarPersona() {
+	private static final long serialVersionUID = 1L;
+
+	public panelEliminarPersona() {
 			
 		super();
 		initialize();

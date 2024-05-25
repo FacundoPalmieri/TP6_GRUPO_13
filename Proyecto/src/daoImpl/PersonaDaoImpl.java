@@ -19,7 +19,7 @@ public class PersonaDaoImpl implements IPersonaDao {
 	//private String pass = "admin";
 	private String dbName = "bdpersonas";
 
-	public  void PersonaDaoImp()
+	public  void PersonaDaoImpl()
 	{
 	
 	}
@@ -95,8 +95,25 @@ public class PersonaDaoImpl implements IPersonaDao {
 	
 	@Override
 	public boolean EliminarPersona(Persona personaDelete) {
-		// TODO Auto-generated method stub
-		return false;
+		 Connection cn = null;
+		    try {
+		        cn = DriverManager.getConnection(host + dbName, user, pass);
+		        Statement st = cn.createStatement();
+		        String query = "DELETE FROM Personas WHERE Dni = '" + personaDelete.getDni() + "'";
+		        int filasAfectadas = st.executeUpdate(query);
+		        return filasAfectadas > 0;
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		        return false;
+		    } finally {
+		        if (cn != null) {
+		            try {
+		                cn.close();
+		            } catch (SQLException e) {
+		                e.printStackTrace();
+		            }
+		        }
+		    }
 	}
 
 	@Override

@@ -15,7 +15,14 @@ public class PersonaNegocio implements IPersonaNegocio {
 	
 	
 	public boolean EliminarPersona(Persona personaDelete) {
-		return true;
+		IPersonaDao personaDao = new PersonaDaoImpl();
+	    try {
+	        boolean eliminado = personaDao.EliminarPersona(personaDelete);
+	        return eliminado;
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return false; // Devuelve false si hubo un error al intentar eliminar la persona
+	    }
 	}
 	
 	

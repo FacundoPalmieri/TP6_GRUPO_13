@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import entidad.Persona;
 import negocioImpl.PersonaNegocio;
 import presentacion.vista.panelAgregarPersona;
@@ -84,6 +86,17 @@ public class Controlador implements ActionListener  {
 	{
 		this.ventanaPrincipal.setVisible(true);;
 	}
+	
+	 public void eliminarPersona(Persona persona) {
+	        boolean eliminado = personaNegocio.EliminarPersona(persona);
+	        if (eliminado) {
+	        	JOptionPane.showMessageDialog(null, "La persona ha sido eliminada correctamente.");
+	        	pnlEliminarPersona.cargarPersonas();
+	        } else {
+	            System.out.println("Error al eliminar la persona.");
+	        }
+	        
+	    }
 
 
 	@Override

@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 
 import java.util.ArrayList;
 
+import javax.swing.AbstractButton;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JList;
@@ -19,11 +20,23 @@ public class panelEliminarPersona extends JPanel {
     private JList<Persona> list;
     private DefaultListModel<Persona> listModel;
     private Controlador controlador;
+    private JButton btnEliminar;
 
 	public panelEliminarPersona(Controlador controlador) {
 		super();
 		this.controlador = controlador;
 		initialize();
+		
+		btnEliminar.addActionListener(e -> {
+            // Obtener la persona seleccionada
+            Persona personaSeleccionada = list.getSelectedValue();
+            if (personaSeleccionada != null) {
+                // Pasar la persona seleccionada al controlador para eliminarla
+                controlador.eliminarPersona(personaSeleccionada);
+            } else {
+                System.out.println("Error: No se ha seleccionado ninguna persona para eliminar.");
+            }
+        });
 	}
 
 	private void initialize() {
@@ -44,9 +57,9 @@ public class panelEliminarPersona extends JPanel {
         list.setBounds(26, 36, 252, 121);
         panel.add(list);
 		
-		JButton btnEliminar = new JButton("ELIMINAR");
-		btnEliminar.setBounds(109, 168, 89, 23);
-		panel.add(btnEliminar);
+        btnEliminar = new JButton("ELIMINAR");
+        btnEliminar.setBounds(109, 168, 89, 23);
+        panel.add(btnEliminar);
 
 	}
 	
@@ -67,4 +80,18 @@ public class panelEliminarPersona extends JPanel {
 	{
 		this.setVisible(true);
 	}
+
+	public JButton getBtnEliminar() {
+		// TODO Auto-generated method stub
+		return btnEliminar;
+	}
+	
+	public JList<Persona> getList() {
+        return list;
+    }
+    
+    public DefaultListModel<Persona> getListModel() {
+        return listModel;
+    }
+    
 }

@@ -20,7 +20,7 @@ public class panelListarPersona extends JPanel {
         super();
         initialize();
         personaDao = new PersonaDaoImpl(); 
-        cargarPersonas();
+        //cargarPersonas();
     }
 
     private void initialize() {

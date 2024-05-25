@@ -2,23 +2,30 @@ package presentacion.controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+import entidad.Persona;
+import negocioImpl.PersonaNegocio;
 import presentacion.vista.panelAgregarPersona;
 import presentacion.vista.panelModificarPersona;
 import presentacion.vista.panelEliminarPersona;
 import presentacion.vista.panelListarPersona;
 import presentacion.vista.VentanaPrincipal;
 
-public class Controlador  implements ActionListener  {
+public class Controlador implements ActionListener  {
 	private VentanaPrincipal ventanaPrincipal;
 	private panelAgregarPersona pnlAgregarPersona;
 	private panelModificarPersona pnlModificarPersona;
 	private panelEliminarPersona pnlEliminarPersona;
 	private panelListarPersona pnlListarPersona;
+	private PersonaNegocio personaNegocio;
+	ArrayList<Persona> listaPersonas;
 	
-	public Controlador(VentanaPrincipal vista)
+	public Controlador(VentanaPrincipal vista, PersonaNegocio personaNegocio)
 	{
 		//Guardo todas las instancias que recibo en el constructor
 		this.ventanaPrincipal = vista;
+		this.personaNegocio = personaNegocio;
 		
 		//Instancio los paneles
 		this.pnlAgregarPersona = new panelAgregarPersona();
@@ -60,6 +67,7 @@ public class Controlador  implements ActionListener  {
 	
 	public void  EventoClickMenu_AbrirPanel_ListarPersona(ActionEvent s)
 	{		
+		listaPersonas=personaNegocio.ListarPersonas();
 		ventanaPrincipal.getContentPane().removeAll();
 		ventanaPrincipal.getContentPane().add(pnlListarPersona);
 		ventanaPrincipal.getContentPane().repaint();

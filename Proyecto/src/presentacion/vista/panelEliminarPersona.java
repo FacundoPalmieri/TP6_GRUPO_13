@@ -1,17 +1,29 @@
 package presentacion.vista;
 
 import javax.swing.JPanel;
+
+import entidad.Persona;
+import presentacion.controlador.Controlador;
+
 import javax.swing.JLabel;
+
+import java.util.ArrayList;
+
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JList;
 
 public class panelEliminarPersona extends JPanel {
 
 	private static final long serialVersionUID = 1L;
+    private JList<Persona> list;
+    private DefaultListModel<Persona> listModel;
+    private Controlador controlador;
 
-	public panelEliminarPersona() {
-			
+	public panelEliminarPersona(Controlador controlador) {
 		super();
+		this.controlador = controlador;
+        System.out.println("pnlEliminarPersona inicializado con controlador: " + this.controlador);	
 		initialize();
 	}
 
@@ -28,15 +40,31 @@ public class panelEliminarPersona extends JPanel {
 		lblNombre.setBounds(63, 11, 161, 14);
 		panel.add(lblNombre);
 		
-		JList list = new JList();
-		list.setBounds(26, 36, 252, 121);
-		panel.add(list);
+		listModel = new DefaultListModel<>();
+        list = new JList<>(listModel);
+        list.setBounds(26, 36, 252, 121);
+        panel.add(list);
 		
 		JButton btnEliminar = new JButton("ELIMINAR");
 		btnEliminar.setBounds(109, 168, 89, 23);
 		panel.add(btnEliminar);
 
 	}
+	
+	public void cargarPersonas() {
+        listModel.clear();
+        System.out.println("cargarPersonas() llamado");
+        ArrayList<Persona> personas = controlador.listarPersonas();
+        System.out.println("personas: " + personas);
+        if (personas == null) {
+            System.out.println("Error: La lista de personas es null");
+        } else {
+            for (Persona persona : personas) {
+                listModel.addElement(persona);
+            }
+        }
+    }
+	
 	
 	public void show()
 	{

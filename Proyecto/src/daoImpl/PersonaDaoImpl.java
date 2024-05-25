@@ -19,7 +19,7 @@ public class PersonaDaoImpl implements IPersonaDao {
 	//private String pass = "admin";
 	private String dbName = "bdpersonas";
 
-	public void PersonaDao()
+	public  void PersonaDaoImp()
 	{
 	
 	}
@@ -51,29 +51,39 @@ public class PersonaDaoImpl implements IPersonaDao {
 	}
 	
 	
-	public ArrayList<Persona> listarPersonas(String dni) {
-		ArrayList<Persona> listaPersonas = new ArrayList<Persona>();
-		String query="SELECT * FROM personas";
-		Connection cn= null;
-		
-		try {
-			cn = DriverManager.getConnection(host + dbName, user, pass);
-			Statement st = cn.createStatement();
-			ResultSet rs = st.executeQuery(query);
-			while(rs.next()) {
-				Persona p = new Persona();
-				p.setNombre(rs.getString("Nombre"));
-				p.setApellido(rs.getString("Apellido"));
-				p.setDni(rs.getString("Dni"));
-				listaPersonas.add(p);
-			}
-			
-		}
-		catch(Exception e){
-			e.printStackTrace();
-		}
-		return listaPersonas;
-	}
+	public ArrayList<Persona> listarPersonas() {
+        ArrayList<Persona> listaPersonas = new ArrayList<>();
+        String query = "SELECT * FROM personas";
+        Connection cn = null;
+        try {
+            System.out.println("Conectando a la base de datos...");
+            cn = DriverManager.getConnection(host + dbName, user, pass);
+            System.out.println("Conexión establecida.");
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            System.out.println("Ejecutando consulta...");
+            while (rs.next()) {
+                Persona p = new Persona();
+                p.setNombre(rs.getString("Nombre"));
+                p.setApellido(rs.getString("Apellido"));
+                p.setDni(rs.getString("Dni"));
+                listaPersonas.add(p);
+            }
+            System.out.println("Consulta ejecutada. Personas encontradas: " + listaPersonas.size());
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (cn != null) {
+                try {
+                    cn.close();
+                    System.out.println("Conexión cerrada.");
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return listaPersonas;
+    }
 
 	@Override
 	public int AgregarPersona(Persona persona) {
@@ -97,7 +107,7 @@ public class PersonaDaoImpl implements IPersonaDao {
 	@Override
 	public ArrayList<Persona> ListarPersonas() {
 		// TODO Auto-generated method stub
-		return null;
+		return listarPersonas();
 	}
 
 }

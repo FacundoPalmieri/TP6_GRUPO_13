@@ -36,7 +36,7 @@ public class panelListarPersona extends JPanel {
     }
 
     private void cargarPersonas() {
-        List<Persona> personas = personaDao.listarPersonas("");
+        List<Persona> personas = personaDao.listarPersonas();
         for (Persona persona : personas) {
             tableModel.addRow(new Object[]{persona.getNombre(), persona.getApellido(), persona.getDni()});
         }

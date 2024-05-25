@@ -19,7 +19,7 @@ public class Controlador implements ActionListener  {
 	private panelEliminarPersona pnlEliminarPersona;
 	private panelListarPersona pnlListarPersona;
 	private PersonaNegocio personaNegocio;
-	ArrayList<Persona> listaPersonas;
+	private ArrayList<Persona> listaPersonas;
 	
 	public Controlador(VentanaPrincipal vista, PersonaNegocio personaNegocio)
 	{
@@ -30,7 +30,7 @@ public class Controlador implements ActionListener  {
 		//Instancio los paneles
 		this.pnlAgregarPersona = new panelAgregarPersona();
 		this.pnlModificarPersona = new panelModificarPersona();
-		this.pnlEliminarPersona = new panelEliminarPersona();
+		this.pnlEliminarPersona = new panelEliminarPersona(this);
 		this.pnlListarPersona = new panelListarPersona();
 		
 		//Eventos menu del Frame principal llamado Ventana
@@ -40,6 +40,12 @@ public class Controlador implements ActionListener  {
 		this.ventanaPrincipal.getMenuListar().addActionListener(s->EventoClickMenu_AbrirPanel_ListarPersona(s));
 		
 	}
+	
+    public ArrayList<Persona> listarPersonas() {
+        ArrayList<Persona> personas = personaNegocio.ListarPersonas();
+        System.out.println("Personas obtenidas del negocio: " + personas);
+        return personas;
+    }
 	
 	//EventoClickMenu abrir PanelAgregarPersonas
 	public void  EventoClickMenu_AbrirPanel_AgregarPersona(ActionEvent a)
@@ -52,6 +58,7 @@ public class Controlador implements ActionListener  {
 	public void  EventoClickMenu_AbrirPanel_EliminarPersona(ActionEvent s)
 	{		
 		ventanaPrincipal.getContentPane().removeAll();
+        pnlEliminarPersona.cargarPersonas();
 		ventanaPrincipal.getContentPane().add(pnlEliminarPersona);
 		ventanaPrincipal.getContentPane().repaint();
 		ventanaPrincipal.getContentPane().revalidate();

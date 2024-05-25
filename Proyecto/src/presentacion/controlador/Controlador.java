@@ -43,7 +43,6 @@ public class Controlador implements ActionListener  {
 	
     public ArrayList<Persona> listarPersonas() {
         ArrayList<Persona> personas = personaNegocio.ListarPersonas();
-        System.out.println("Personas obtenidas del negocio: " + personas);
         return personas;
     }
 	

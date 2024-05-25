@@ -56,12 +56,9 @@ public class PersonaDaoImpl implements IPersonaDao {
         String query = "SELECT * FROM personas";
         Connection cn = null;
         try {
-            System.out.println("Conectando a la base de datos...");
             cn = DriverManager.getConnection(host + dbName, user, pass);
-            System.out.println("Conexión establecida.");
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(query);
-            System.out.println("Ejecutando consulta...");
             while (rs.next()) {
                 Persona p = new Persona();
                 p.setNombre(rs.getString("Nombre"));
@@ -69,14 +66,12 @@ public class PersonaDaoImpl implements IPersonaDao {
                 p.setDni(rs.getString("Dni"));
                 listaPersonas.add(p);
             }
-            System.out.println("Consulta ejecutada. Personas encontradas: " + listaPersonas.size());
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             if (cn != null) {
                 try {
                     cn.close();
-                    System.out.println("Conexión cerrada.");
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }

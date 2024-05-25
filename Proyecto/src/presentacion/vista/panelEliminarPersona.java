@@ -23,7 +23,6 @@ public class panelEliminarPersona extends JPanel {
 	public panelEliminarPersona(Controlador controlador) {
 		super();
 		this.controlador = controlador;
-        System.out.println("pnlEliminarPersona inicializado con controlador: " + this.controlador);	
 		initialize();
 	}
 
@@ -53,9 +52,7 @@ public class panelEliminarPersona extends JPanel {
 	
 	public void cargarPersonas() {
         listModel.clear();
-        System.out.println("cargarPersonas() llamado");
         ArrayList<Persona> personas = controlador.listarPersonas();
-        System.out.println("personas: " + personas);
         if (personas == null) {
             System.out.println("Error: La lista de personas es null");
         } else {

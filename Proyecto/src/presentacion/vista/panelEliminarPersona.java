@@ -1,15 +1,10 @@
 package presentacion.vista;
 
 import javax.swing.JPanel;
-
 import entidad.Persona;
 import presentacion.controlador.Controlador;
-
 import javax.swing.JLabel;
-
 import java.util.ArrayList;
-
-import javax.swing.AbstractButton;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JList;

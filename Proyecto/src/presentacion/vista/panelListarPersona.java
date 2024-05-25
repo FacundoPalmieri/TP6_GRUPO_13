@@ -17,8 +17,6 @@ public class panelListarPersona extends JPanel {
     public panelListarPersona() {
         super();
         initialize();
-        personaDao = new PersonaDaoImpl(); 
-        //cargarPersonas();
     }
 
     private void initialize() {
@@ -33,12 +31,15 @@ public class panelListarPersona extends JPanel {
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBounds(27, 11, 384, 189);
         this.add(scrollPane);
+        personaDao = new PersonaDaoImpl(); 
+        cargarPersonas();
     }
-
+    
     private void cargarPersonas() {
         List<Persona> personas = personaDao.listarPersonas();
         for (Persona persona : personas) {
             tableModel.addRow(new Object[]{persona.getNombre(), persona.getApellido(), persona.getDni()});
+            
         }
     }
 

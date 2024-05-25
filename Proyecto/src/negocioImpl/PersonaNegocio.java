@@ -37,4 +37,9 @@ public class PersonaNegocio implements IPersonaNegocio {
 		}
 		return listaPersonas;
 	}
+	
+	
+	public int ModificarPersona(Persona persona) {
+		return 0;
+	}
 }

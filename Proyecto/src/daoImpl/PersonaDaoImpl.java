@@ -83,7 +83,6 @@ public class PersonaDaoImpl implements IPersonaDao {
 
 	
 	public int ModificarPersona(Persona persona) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 	

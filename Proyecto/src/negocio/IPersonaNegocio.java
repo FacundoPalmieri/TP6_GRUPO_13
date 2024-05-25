@@ -12,4 +12,6 @@ public interface IPersonaNegocio {
 	
 	public ArrayList<Persona> ListarPersonas();
 	
+	public int ModificarPersona(Persona persona);
+	
 }

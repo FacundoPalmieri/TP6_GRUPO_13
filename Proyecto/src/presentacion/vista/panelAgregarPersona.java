@@ -18,11 +18,13 @@ import java.awt.event.ActionEvent;
 public class panelAgregarPersona extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private JTextField textFieldNombre;
-	private JTextField textFieldApellido;
-	private JTextField textFieldDni;
-	private Persona persona = new Persona();
-	private PersonaDaoImpl personaDao = new PersonaDaoImpl();
+	public JTextField textFieldNombre;
+	public JTextField textFieldApellido;
+	public JTextField textFieldDni;
+	public Persona persona = new Persona();
+	public PersonaDaoImpl personaDao = new PersonaDaoImpl();
+	public JButton btnAceptar = new JButton("Aceptar");
+	public JPanel panel;
 	
 	 public panelAgregarPersona() {
 			
@@ -34,7 +36,7 @@ public class panelAgregarPersona extends JPanel {
 		this.setBounds(100, 100, 514, 455);
 		this.setLayout(null);
 		
-		JPanel panel = new JPanel();
+		panel = new JPanel();
 		panel.setBounds(20, 22, 444, 227);
 		this.add(panel);
 		panel.setLayout(null);
@@ -92,52 +94,7 @@ public class panelAgregarPersona extends JPanel {
 			}
 		});
 		
-		JButton btnAceptar = new JButton("Aceptar");
-		btnAceptar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			try {
-				if(!(textFieldNombre.getText().isEmpty() || textFieldApellido.getText().isEmpty() || textFieldDni.getText().isEmpty())) {
-					persona.setNombre(textFieldNombre.getText());
-					persona.setApellido(textFieldApellido.getText());
-					persona.setDni(textFieldDni.getText());
-					
-					int filas = personaDao.AgregarPersona(persona);
-					
-					if(filas == 1) {
-					JOptionPane.showMessageDialog(null, "Persona agregada correctamente");
-					  textFieldNombre.setText("");
-					  textFieldApellido.setText("");
-					  textFieldDni.setText("");
-						
-					}
-					else {
-						JOptionPane.showMessageDialog(null, "No se pudo agregar la persona");
-					}	
-		              
-			    } else if(textFieldNombre.getText().isEmpty()) {
-		            throw new Exception("Debe completar el nombre");
-		            
-		          } else if (textFieldApellido.getText().isEmpty()) {
-		        		throw new Exception("Debe completar el apellido");
-		        		
-		        	} else {
-		        	   throw new Exception("Debe completar el DNI");
-		        	} 
-			} catch (SQLException ex) {
-	                   ex.printStackTrace();
-	                   if (ex.getErrorCode() == 1062) { // Código de error de clave duplicada en MySQL
-	                       JOptionPane.showMessageDialog(null, "DNI ya registrado en Base de Datos");
-	                   } else {
-	                       JOptionPane.showMessageDialog(null, "Error de base de datos: " + ex.getMessage());
-	                   }
-			   } catch (Exception ex) {
-			          JOptionPane.showMessageDialog(null, ex.getMessage());
-			        }
-			}
-		});
-		btnAceptar.setBounds(110, 102, 89, 23);
-		panel.add(btnAceptar);
-
+		btnAceptar = new JButton("Aceptar");
 	}
 	
 	public void show()

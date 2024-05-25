@@ -2,6 +2,7 @@ package presentacion.controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
@@ -16,10 +17,9 @@ import presentacion.vista.VentanaPrincipal;
 
 public class Controlador implements ActionListener  {
 	private VentanaPrincipal ventanaPrincipal;
-	private panelAgregarPersona pnlAgregarPersona;
+	//private panelAgregarPersona pnlAgregarPersona;
 	private panelModificarPersona pnlModificarPersona;
 	private panelEliminarPersona pnlEliminarPersona;
-	private panelListarPersona pnlListarPersona;
 	private PersonaNegocio personaNegocio;
 	private ArrayList<Persona> listaPersonas;
 	
@@ -30,10 +30,9 @@ public class Controlador implements ActionListener  {
 		this.personaNegocio = personaNegocio;
 		
 		//Instancio los paneles
-		this.pnlAgregarPersona = new panelAgregarPersona();
+		//this.pnlAgregarPersona = new panelAgregarPersona();
 		this.pnlModificarPersona = new panelModificarPersona();
 		this.pnlEliminarPersona = new panelEliminarPersona(this);
-		this.pnlListarPersona = new panelListarPersona();
 		
 		//Eventos menu del Frame principal llamado Ventana
 		this.ventanaPrincipal.getMnAgregar().addActionListener(a->EventoClickMenu_AbrirPanel_AgregarPersona(a));
@@ -53,7 +52,53 @@ public class Controlador implements ActionListener  {
 	//EventoClickMenu abrir PanelAgregarPersonas
 	public void  EventoClickMenu_AbrirPanel_AgregarPersona(ActionEvent a)
 	{		
+		panelAgregarPersona pnlAgregarPersona= new panelAgregarPersona();
+		pnlAgregarPersona.btnAceptar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			try {
+				if(!(pnlAgregarPersona.textFieldNombre.getText().isEmpty() || pnlAgregarPersona.textFieldApellido.getText().isEmpty() || pnlAgregarPersona.textFieldDni.getText().isEmpty())) {
+					pnlAgregarPersona.persona.setNombre(pnlAgregarPersona.textFieldNombre.getText());
+					pnlAgregarPersona.persona.setApellido(pnlAgregarPersona.textFieldApellido.getText());
+					pnlAgregarPersona.persona.setDni(pnlAgregarPersona.textFieldDni.getText());
+					
+					int filas = pnlAgregarPersona.personaDao.AgregarPersona(pnlAgregarPersona.persona);
+					
+					if(filas == 1) {
+					JOptionPane.showMessageDialog(null, "Persona agregada correctamente");
+					pnlAgregarPersona.textFieldNombre.setText("");
+					pnlAgregarPersona.textFieldApellido.setText("");
+					pnlAgregarPersona.textFieldDni.setText("");
+						
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "No se pudo agregar la persona");
+					}	
+		              
+			    } else if(pnlAgregarPersona.textFieldNombre.getText().isEmpty()) {
+		            throw new Exception("Debe completar el nombre");
+		            
+		          } else if (pnlAgregarPersona.textFieldApellido.getText().isEmpty()) {
+		        		throw new Exception("Debe completar el apellido");
+		        		
+		        	} else {
+		        	   throw new Exception("Debe completar el DNI");
+		        	} 
+			} catch (SQLException ex) {
+	                   ex.printStackTrace();
+	                   if (ex.getErrorCode() == 1062) { // Código de error de clave duplicada en MySQL
+	                       JOptionPane.showMessageDialog(null, "DNI ya registrado en Base de Datos");
+	                   } else {
+	                       JOptionPane.showMessageDialog(null, "Error de base de datos: " + ex.getMessage());
+	                   }
+			   } catch (Exception ex) {
+			          JOptionPane.showMessageDialog(null, ex.getMessage());
+			        }
+			}
+		});
+		pnlAgregarPersona.btnAceptar.setBounds(110, 102, 89, 23);
+		pnlAgregarPersona.panel.add(pnlAgregarPersona.btnAceptar);
 
+		
 		ventanaPrincipal.getContentPane().removeAll();
 		ventanaPrincipal.getContentPane().add(pnlAgregarPersona);
 		ventanaPrincipal.getContentPane().repaint();
@@ -81,8 +126,8 @@ public class Controlador implements ActionListener  {
 	
 	
 	public void  EventoClickMenu_AbrirPanel_ListarPersona(ActionEvent s)
-	{		
-		pnlListarPersona = new panelListarPersona();
+	{	
+		panelListarPersona pnlListarPersona = new panelListarPersona();
 		pnlListarPersona.tableModel.setRowCount(0);
 		listaPersonas = personaNegocio.ListarPersonas();
 		

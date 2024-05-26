@@ -2,9 +2,7 @@ package presentacion.vista;
 
 import javax.swing.JPanel;
 import entidad.Persona;
-import presentacion.controlador.Controlador;
 import javax.swing.JLabel;
-import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JList;
@@ -19,18 +17,6 @@ public class panelEliminarPersona extends JPanel {
 	public panelEliminarPersona() {
 		super();
 		initialize();
-		
-		/*
-		btnEliminar.addActionListener(e -> {
-            // Obtener la persona seleccionada
-            Persona personaSeleccionada = list.getSelectedValue();
-            if (personaSeleccionada != null) {
-                // Pasar la persona seleccionada al controlador para eliminarla
-                controlador.eliminarPersona(personaSeleccionada);
-            } else {
-                System.out.println("Error: No se ha seleccionado ninguna persona para eliminar.");
-            }
-        });*/
 	}
 
 	private void initialize() {
@@ -56,19 +42,6 @@ public class panelEliminarPersona extends JPanel {
         panel.add(btnEliminar);
 
 	}
-	
-	/*
-	public void cargarPersonas() {
-        listModel.clear();
-        ArrayList<Persona> personas = controlador.listarPersonas();
-        if (personas == null) {
-            System.out.println("Error: La lista de personas es null");
-        } else {
-            for (Persona persona : personas) {
-                listModel.addElement(persona);
-            }
-        }
-    }*/
 	
 	
 	public void show()

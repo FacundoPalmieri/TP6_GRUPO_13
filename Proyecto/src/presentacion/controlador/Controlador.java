@@ -35,7 +35,6 @@ public class Controlador implements ActionListener  {
 		this.ventanaPrincipal.getMenuEliminar().addActionListener(s->EventoClickMenu_AbrirPanel_EliminarPersona(s));
 		this.ventanaPrincipal.getMenuModificar().addActionListener(s->EventoClickMenu_AbrirPanel_ModificarPersona(s));
 		this.ventanaPrincipal.getMenuListar().addActionListener(s->EventoClickMenu_AbrirPanel_ListarPersona(s));
-		//this.pnlModificarPersona.getBtnModificar().addActionListener(e -> modificarPersonaSeleccionada());
 	}
 	
 	
@@ -101,8 +100,19 @@ public class Controlador implements ActionListener  {
 	
 	public void  EventoClickMenu_AbrirPanel_EliminarPersona(ActionEvent s)
 	{		
+		pnlEliminarPersona = new panelEliminarPersona();
 		ventanaPrincipal.getContentPane().removeAll();
-        pnlEliminarPersona.cargarPersonas();
+		cargarPersonasEliminadas();
+        pnlEliminarPersona.btnEliminar.addActionListener(e -> {
+            // Obtener la persona seleccionada
+            Persona personaSeleccionada = pnlEliminarPersona.list.getSelectedValue();
+            if (personaSeleccionada != null) {
+                // Pasar la persona seleccionada al controlador para eliminarla
+                eliminarPersona(personaSeleccionada);
+            } else {
+                System.out.println("Error: No se ha seleccionado ninguna persona para eliminar.");
+            }
+        });
 		ventanaPrincipal.getContentPane().add(pnlEliminarPersona);
 		ventanaPrincipal.getContentPane().repaint();
 		ventanaPrincipal.getContentPane().revalidate();
@@ -170,12 +180,24 @@ public class Controlador implements ActionListener  {
         }
     }
 	
+	public void cargarPersonasEliminadas() {
+		pnlEliminarPersona.listModel.clear();
+        ArrayList<Persona> personas = listarPersonas();
+        if (personas == null) {
+            System.out.println("Error: La lista de personas es null");
+        } else {
+            for (Persona persona : personas) {
+            	pnlEliminarPersona.listModel.addElement(persona);
+            }
+        }
+	}
+	
 	
 	public void eliminarPersona(Persona persona) {
 	        boolean eliminado = personaNegocio.EliminarPersona(persona);
 	        if (eliminado) {
 	        	JOptionPane.showMessageDialog(null, "La persona ha sido eliminada correctamente.");
-	        	pnlEliminarPersona.cargarPersonas();
+	        	cargarPersonasEliminadas();
 	            listaPersonas = personaNegocio.ListarPersonas(); // ***Agregar esta línea***
 	        } else {
 	            System.out.println("Error al eliminar la persona.");

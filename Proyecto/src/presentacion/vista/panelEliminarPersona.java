@@ -12,16 +12,15 @@ import javax.swing.JList;
 public class panelEliminarPersona extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-    private JList<Persona> list;
-    private DefaultListModel<Persona> listModel;
-    private Controlador controlador;
-    private JButton btnEliminar;
+    public JList<Persona> list;
+    public DefaultListModel<Persona> listModel;
+    public JButton btnEliminar;
 
-	public panelEliminarPersona(Controlador controlador) {
+	public panelEliminarPersona() {
 		super();
-		this.controlador = controlador;
 		initialize();
 		
+		/*
 		btnEliminar.addActionListener(e -> {
             // Obtener la persona seleccionada
             Persona personaSeleccionada = list.getSelectedValue();
@@ -31,7 +30,7 @@ public class panelEliminarPersona extends JPanel {
             } else {
                 System.out.println("Error: No se ha seleccionado ninguna persona para eliminar.");
             }
-        });
+        });*/
 	}
 
 	private void initialize() {
@@ -58,6 +57,7 @@ public class panelEliminarPersona extends JPanel {
 
 	}
 	
+	/*
 	public void cargarPersonas() {
         listModel.clear();
         ArrayList<Persona> personas = controlador.listarPersonas();
@@ -68,7 +68,7 @@ public class panelEliminarPersona extends JPanel {
                 listModel.addElement(persona);
             }
         }
-    }
+    }*/
 	
 	
 	public void show()

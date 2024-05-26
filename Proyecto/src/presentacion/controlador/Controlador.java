@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import entidad.Persona;
 import negocioImpl.PersonaNegocio;
@@ -17,7 +19,6 @@ import presentacion.vista.VentanaPrincipal;
 
 public class Controlador implements ActionListener  {
 	private VentanaPrincipal ventanaPrincipal;
-	//private panelAgregarPersona pnlAgregarPersona;
 	private panelModificarPersona pnlModificarPersona;
 	private panelEliminarPersona pnlEliminarPersona;
 	private PersonaNegocio personaNegocio;
@@ -29,20 +30,12 @@ public class Controlador implements ActionListener  {
 		this.ventanaPrincipal = vista;
 		this.personaNegocio = personaNegocio;
 		
-		//Instancio los paneles
-		//this.pnlAgregarPersona = new panelAgregarPersona();
-		this.pnlEliminarPersona = new panelEliminarPersona(this);
-		this.pnlModificarPersona = new panelModificarPersona(this);
-		
 		//Eventos menu del Frame principal llamado Ventana
 		this.ventanaPrincipal.getMnAgregar().addActionListener(a->EventoClickMenu_AbrirPanel_AgregarPersona(a));
 		this.ventanaPrincipal.getMenuEliminar().addActionListener(s->EventoClickMenu_AbrirPanel_EliminarPersona(s));
 		this.ventanaPrincipal.getMenuModificar().addActionListener(s->EventoClickMenu_AbrirPanel_ModificarPersona(s));
 		this.ventanaPrincipal.getMenuListar().addActionListener(s->EventoClickMenu_AbrirPanel_ListarPersona(s));
-		
-		this.pnlModificarPersona.getBtnModificar().addActionListener(e -> modificarPersonaSeleccionada());
-
-		
+		//this.pnlModificarPersona.getBtnModificar().addActionListener(e -> modificarPersonaSeleccionada());
 	}
 	
 	
@@ -63,7 +56,6 @@ public class Controlador implements ActionListener  {
 					pnlAgregarPersona.persona.setNombre(pnlAgregarPersona.textFieldNombre.getText());
 					pnlAgregarPersona.persona.setApellido(pnlAgregarPersona.textFieldApellido.getText());
 					pnlAgregarPersona.persona.setDni(pnlAgregarPersona.textFieldDni.getText());
-					
 					int filas = pnlAgregarPersona.personaDao.AgregarPersona(pnlAgregarPersona.persona);
 					
 					if(filas == 1) {
@@ -71,7 +63,6 @@ public class Controlador implements ActionListener  {
 					pnlAgregarPersona.textFieldNombre.setText("");
 					pnlAgregarPersona.textFieldApellido.setText("");
 					pnlAgregarPersona.textFieldDni.setText("");
-						
 					}
 					else {
 						JOptionPane.showMessageDialog(null, "No se pudo agregar la persona");
@@ -98,10 +89,9 @@ public class Controlador implements ActionListener  {
 			        }
 			}
 		});
+		
 		pnlAgregarPersona.btnAceptar.setBounds(110, 102, 89, 23);
 		pnlAgregarPersona.panel.add(pnlAgregarPersona.btnAceptar);
-
-		
 		ventanaPrincipal.getContentPane().removeAll();
 		ventanaPrincipal.getContentPane().add(pnlAgregarPersona);
 		ventanaPrincipal.getContentPane().repaint();
@@ -121,8 +111,29 @@ public class Controlador implements ActionListener  {
 	
 	public void  EventoClickMenu_AbrirPanel_ModificarPersona(ActionEvent s)
 	{		
+		pnlModificarPersona = new panelModificarPersona();
 		ventanaPrincipal.getContentPane().removeAll();
-	    pnlModificarPersona.cargarPersonas();
+		cargarPersonas();
+		pnlModificarPersona.list.setSelectedIndex(0);
+		Persona personaSeleccionada = pnlModificarPersona.list.getSelectedValue();
+		pnlModificarPersona.txtNombre.setText(personaSeleccionada.getNombre());
+		pnlModificarPersona.txtApellido.setText(personaSeleccionada.getApellido());
+		pnlModificarPersona.txtDni.setText(personaSeleccionada.getDni());
+		pnlModificarPersona.list.addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                	Persona personaSeleccionada = pnlModificarPersona.list.getSelectedValue();
+                	pnlModificarPersona.txtNombre.setText(personaSeleccionada.getNombre());
+            		pnlModificarPersona.txtApellido.setText(personaSeleccionada.getApellido());
+            		pnlModificarPersona.txtDni.setText(personaSeleccionada.getDni());
+                }
+            }
+        });;
+		pnlModificarPersona.btnModificar.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		modificarPersonaSeleccionada(personaSeleccionada);
+        	}
+        });
 		ventanaPrincipal.getContentPane().add(pnlModificarPersona);
 		ventanaPrincipal.getContentPane().repaint();
 		ventanaPrincipal.getContentPane().revalidate();
@@ -151,21 +162,28 @@ public class Controlador implements ActionListener  {
 	}
 	
 	
+	public void cargarPersonas() {
+		pnlModificarPersona.listModel.clear();
+        ArrayList<Persona> personas = listarPersonas();
+        for (Persona persona : personas) {
+        	pnlModificarPersona.listModel.addElement(persona);
+        }
+    }
+	
+	
 	public void eliminarPersona(Persona persona) {
 	        boolean eliminado = personaNegocio.EliminarPersona(persona);
 	        if (eliminado) {
 	        	JOptionPane.showMessageDialog(null, "La persona ha sido eliminada correctamente.");
 	        	pnlEliminarPersona.cargarPersonas();
 	            listaPersonas = personaNegocio.ListarPersonas(); // ***Agregar esta línea***
-	            //pnlListarPersona.cargarPersonas(listaPersonas); 
-	      //  	pnlListarPersona.cargarPersonas();
 	        } else {
 	            System.out.println("Error al eliminar la persona.");
 	        }
 	    }
 	
-	 public void modificarPersonaSeleccionada() {
-	        Persona personaSeleccionada = pnlModificarPersona.getPersonaSeleccionada();
+	
+	 public void modificarPersonaSeleccionada(Persona personaSeleccionada) {
 	        if (personaSeleccionada != null) {
 	            String nuevoNombre = pnlModificarPersona.getNuevoNombre();
 	            String nuevoApellido = pnlModificarPersona.getNuevoApellido();
@@ -176,7 +194,7 @@ public class Controlador implements ActionListener  {
 	            int filasAfectadas = personaNegocio.ModificarPersona(personaSeleccionada);
 	            if (filasAfectadas > 0) {
 	                JOptionPane.showMessageDialog(null, "La persona ha sido modificada correctamente.");
-	                pnlModificarPersona.cargarPersonas();
+	                cargarPersonas();
 	            } else {
 	                JOptionPane.showMessageDialog(null, "Ha ocurrido un error al intentar modificar la persona.", "Error", JOptionPane.ERROR_MESSAGE);
 	            }

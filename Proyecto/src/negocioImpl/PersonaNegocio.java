@@ -15,9 +15,19 @@ public class PersonaNegocio implements IPersonaNegocio {
 	        this.personaDao = new PersonaDaoImpl();
 	    }
 	    
-	public int AgregarPersona(Persona persona) {
-		return 1;
-	}
+	    public int AgregarPersona(Persona persona) {
+			int filas;
+			Persona p=persona;
+			IPersonaDao personaDao = new PersonaDaoImpl();
+			try {
+				filas=personaDao.AgregarPersona(p);
+				return filas;
+			}
+			catch(Exception e){
+				e.getStackTrace();
+				return 0;
+			}
+		}
 	
 	
 	public boolean EliminarPersona(Persona personaDelete) {

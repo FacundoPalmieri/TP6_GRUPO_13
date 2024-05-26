@@ -4,28 +4,20 @@ import javax.swing.JPanel;
 import entidad.Persona;
 import javax.swing.JLabel;
 import javax.swing.*;
-import java.util.ArrayList;
-import presentacion.controlador.Controlador;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class panelModificarPersona extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private JList<Persona> list;
-    private DefaultListModel<Persona> listModel;
-    private Controlador controlador;
-    private JTextField txtNombre;
-    private JTextField txtApellido;
-    private JButton btnModificar;
-    private JTextField txtDni;
+	public JList<Persona> list;
+    public DefaultListModel<Persona> listModel;
+    public JTextField txtNombre;
+    public JTextField txtApellido;
+    public JButton btnModificar;
+    public JTextField txtDni;
 
-	public panelModificarPersona(Controlador controlador) {
-		
+	public panelModificarPersona() {
 		super();
 		initialize();
-        this.controlador = controlador;
-		
 	}
 
 	private void initialize() {
@@ -57,10 +49,6 @@ public class panelModificarPersona extends JPanel {
         txtApellido.setColumns(10);
 
         btnModificar = new JButton("MODIFICAR");
-        btnModificar.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
         btnModificar.setBounds(290, 181, 91, 23);
         panel.add(btnModificar);
         
@@ -83,14 +71,7 @@ public class panelModificarPersona extends JPanel {
 
 	}
 	
-	public void cargarPersonas() {
-        listModel.clear();
-        ArrayList<Persona> personas = controlador.listarPersonas();
-        for (Persona persona : personas) {
-            listModel.addElement(persona);
-        }
-    }
-
+	
     public JButton getBtnModificar() {
         return btnModificar;
     }

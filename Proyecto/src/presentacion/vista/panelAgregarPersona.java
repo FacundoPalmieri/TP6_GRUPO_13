@@ -2,18 +2,14 @@ package presentacion.vista;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import daoImpl.PersonaDaoImpl;
 import entidad.Persona;
+import negocioImpl.PersonaNegocio;
 
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.sql.SQLException;
-import java.awt.event.ActionEvent;
 
 public class panelAgregarPersona extends JPanel {
 
@@ -22,12 +18,11 @@ public class panelAgregarPersona extends JPanel {
 	public JTextField textFieldApellido;
 	public JTextField textFieldDni;
 	public Persona persona = new Persona();
-	public PersonaDaoImpl personaDao = new PersonaDaoImpl();
+	public PersonaNegocio personaDao = new PersonaNegocio();
 	public JButton btnAceptar = new JButton("Aceptar");
 	public JPanel panel;
 	
-	 public panelAgregarPersona() {
-			
+	 public panelAgregarPersona() {	
 		super();
 		initialize();
 	}

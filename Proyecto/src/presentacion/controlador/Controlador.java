@@ -122,36 +122,28 @@ public class Controlador implements ActionListener  {
 	
 	public void  EventoClickMenu_AbrirPanel_ModificarPersona(ActionEvent s)
 	{		
-		ventanaPrincipal.getContentPane().removeAll();
 		cargarPersonas();
-		//pnlModificarPersona.list.setSelectedIndex(0);
-		//Persona personaSeleccionada = null;
-		//Persona personaSeleccionada = pnlModificarPersona.list.getSelectedValue();
-		//pnlModificarPersona.txtNombre.setText(personaSeleccionada.getNombre());
-		//pnlModificarPersona.txtApellido.setText(personaSeleccionada.getApellido());
-		//pnlModificarPersona.txtDni.setText(personaSeleccionada.getDni());
 		pnlModificarPersona.list.addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent e) {
-                if (!e.getValueIsAdjusting()) {
-                	Persona personaSeleccionada = pnlModificarPersona.list.getSelectedValue();
-                	pnlModificarPersona.txtNombre.setText(personaSeleccionada.getNombre());
+            	if(pnlModificarPersona.list.getSelectedIndex()!=-1) {
+            		Persona personaSeleccionada = pnlModificarPersona.list.getSelectedValue();
+            		pnlModificarPersona.txtNombre.setText(personaSeleccionada.getNombre());
             		pnlModificarPersona.txtApellido.setText(personaSeleccionada.getApellido());
             		pnlModificarPersona.txtDni.setText(personaSeleccionada.getDni());
-            		pnlModificarPersona.btnModificar.addActionListener(new ActionListener() {
-                    	public void actionPerformed(ActionEvent e) {
-                    		modificarPersonaSeleccionada(personaSeleccionada);
-                    	}
-                    });
-                }
+            		
+            	}
             }
         });;
-		/*
+		
         pnlModificarPersona.btnModificar.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		modificarPersonaSeleccionada(personaSeleccionada);
+        		Persona personaSeleccionada = pnlModificarPersona.list.getSelectedValue();
+        		if(personaSeleccionada!=null) {
+        			modificarPersonaSeleccionada(personaSeleccionada);
+        		}
         	}
-        });*/
-        
+        });
+        ventanaPrincipal.getContentPane().removeAll();
 		ventanaPrincipal.getContentPane().add(pnlModificarPersona);
 		ventanaPrincipal.getContentPane().repaint();
 		ventanaPrincipal.getContentPane().revalidate();
@@ -183,10 +175,16 @@ public class Controlador implements ActionListener  {
 	public void cargarPersonas() {
 		pnlModificarPersona.listModel.clear();
         ArrayList<Persona> personas = personaNegocio.ListarPersonas();
-        for (Persona persona : personas) {
-        	pnlModificarPersona.listModel.addElement(persona);
+        if(personas == null) {
+        	System.out.println("Error: La lista de personas es null");
         }
+        else {
+        	for (Persona persona : personas) {
+            	pnlModificarPersona.listModel.addElement(persona);
+            }
+        }  
     }
+	
 	
 	public void cargarPersonasEliminadas() {
 		pnlEliminarPersona.listModel.clear();
@@ -206,7 +204,6 @@ public class Controlador implements ActionListener  {
 	        if (eliminado) {
 	        	JOptionPane.showMessageDialog(null, "La persona ha sido eliminada correctamente.");
 	        	cargarPersonasEliminadas();
-	            listaPersonas = personaNegocio.ListarPersonas(); // ***Agregar esta línea***
 	        } else {
 	            System.out.println("Error al eliminar la persona.");
 	        }
@@ -214,21 +211,15 @@ public class Controlador implements ActionListener  {
 	
 	
 	 public void modificarPersonaSeleccionada(Persona personaSeleccionada) {
-	        if (personaSeleccionada != null) {
 	            String nuevoNombre = pnlModificarPersona.getNuevoNombre();
 	            String nuevoApellido = pnlModificarPersona.getNuevoApellido();
 	            String nuevoDNI = pnlModificarPersona.getNuevoDNI();
 	            personaSeleccionada.setNombre(nuevoNombre);
 	            personaSeleccionada.setApellido(nuevoApellido);
 	            personaSeleccionada.setDni(nuevoDNI);
-	            int filasAfectadas = personaNegocio.ModificarPersona(personaSeleccionada);
-	            if (filasAfectadas > 0) {
-	                JOptionPane.showMessageDialog(null, "La persona ha sido modificada correctamente.");
-	                cargarPersonas();
-	            } else {
-	                JOptionPane.showMessageDialog(null, "Ha ocurrido un error al intentar modificar la persona.", "Error", JOptionPane.ERROR_MESSAGE);
-	            }
-	        }
+	            personaNegocio.ModificarPersona(personaSeleccionada);
+	            JOptionPane.showMessageDialog(null, "La persona ha sido modificada correctamente.");
+            	cargarPersonas();
 	    }
 
 

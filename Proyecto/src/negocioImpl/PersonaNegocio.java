@@ -16,17 +16,15 @@ public class PersonaNegocio implements IPersonaNegocio {
 	    }
 	    
 	    public int AgregarPersona(Persona persona) {
-			int filas;
-			Persona p=persona;
+			int filas=0;
 			IPersonaDao personaDao = new PersonaDaoImpl();
 			try {
-				filas=personaDao.AgregarPersona(p);
-				return filas;
+				filas=personaDao.AgregarPersona(persona);
 			}
 			catch(Exception e){
 				e.getStackTrace();
-				return 0;
 			}
+			return filas;
 		}
 	
 	
@@ -56,6 +54,6 @@ public class PersonaNegocio implements IPersonaNegocio {
 	
 	
 	public int ModificarPersona(Persona persona) {
-        return personaDao.ModificarPersona(persona);
+		return personaDao.ModificarPersona(persona);
 	}
 }

@@ -92,6 +92,10 @@ public class panelModificarPersona extends JPanel {
         return txtDni.getText();
     }
     
+    public void setNombre(String nombre) {
+    	txtNombre.setText(nombre);;
+    }
+    
 	public void show()
 	{
 		this.setVisible(true);

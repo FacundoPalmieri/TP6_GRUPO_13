@@ -14,10 +14,9 @@ import entidad.Persona;
 public class PersonaDaoImpl implements IPersonaDao {
 	private String host = "jdbc:mysql://localhost:3306/";
 	private String user ="root";
-	//Comentar el que corresponda
-    //private String pass = "root";
+	//Comentar el que corresrootponda
+    private String pass = "root";
 	//private String pass = "ROOT";
-	private String pass = "root";
 	private String dbName = "bdpersonas";
 
 	public PersonaDaoImpl()
@@ -85,7 +84,7 @@ public class PersonaDaoImpl implements IPersonaDao {
 	@Override
 	public int ModificarPersona(Persona persona) {
 		
-		String query = "UPDATE Personas SET Nombre = ?, Apellido = ? WHERE Dni = ?";
+		String query = "UPDATE Personas SET Nombre = ?, Apellido = ?, Dni = ? WHERE Dni = ?";
         Connection cn = null;
         int filasAfectadas = 0;
         try {

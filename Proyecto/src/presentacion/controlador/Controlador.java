@@ -169,12 +169,14 @@ public class Controlador implements ActionListener  {
 	        if (personaSeleccionada != null) {
 	            String nuevoNombre = pnlModificarPersona.getNuevoNombre();
 	            String nuevoApellido = pnlModificarPersona.getNuevoApellido();
+	            String nuevoDNI = pnlModificarPersona.getNuevoDNI();
 	            personaSeleccionada.setNombre(nuevoNombre);
 	            personaSeleccionada.setApellido(nuevoApellido);
+	            personaSeleccionada.setDni(nuevoDNI);
 	            int filasAfectadas = personaNegocio.ModificarPersona(personaSeleccionada);
 	            if (filasAfectadas > 0) {
 	                JOptionPane.showMessageDialog(null, "La persona ha sido modificada correctamente.");
-	                pnlModificarPersona.cargarPersonas(); // Actualiza la lista de personas
+	                pnlModificarPersona.cargarPersonas();
 	            } else {
 	                JOptionPane.showMessageDialog(null, "Ha ocurrido un error al intentar modificar la persona.", "Error", JOptionPane.ERROR_MESSAGE);
 	            }

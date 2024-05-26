@@ -9,6 +9,12 @@ import negocio.IPersonaNegocio;
 
 public class PersonaNegocio implements IPersonaNegocio {
 	
+	 private IPersonaDao personaDao;
+
+	    public PersonaNegocio() {
+	        this.personaDao = new PersonaDaoImpl();
+	    }
+	    
 	public int AgregarPersona(Persona persona) {
 		return 1;
 	}
@@ -40,6 +46,6 @@ public class PersonaNegocio implements IPersonaNegocio {
 	
 	
 	public int ModificarPersona(Persona persona) {
-		return 0;
+        return personaDao.ModificarPersona(persona);
 	}
 }

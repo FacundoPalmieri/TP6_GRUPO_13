@@ -2,6 +2,7 @@ package daoImpl;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -81,9 +82,31 @@ public class PersonaDaoImpl implements IPersonaDao {
     }
 
 
-	
+	@Override
 	public int ModificarPersona(Persona persona) {
-		return 0;
+		
+		String query = "UPDATE Personas SET Nombre = ?, Apellido = ? WHERE Dni = ?";
+        Connection cn = null;
+        int filasAfectadas = 0;
+        try {
+            cn = DriverManager.getConnection(host + dbName, user, pass);
+            PreparedStatement pst = cn.prepareStatement(query);
+            pst.setString(1, persona.getNombre());
+            pst.setString(2, persona.getApellido());
+            pst.setString(3, persona.getDni());
+            filasAfectadas = pst.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (cn != null) {
+                try {
+                    cn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return filasAfectadas;
 	}
 	
 	

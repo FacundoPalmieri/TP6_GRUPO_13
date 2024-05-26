@@ -83,7 +83,6 @@ public class PersonaDaoImpl implements IPersonaDao {
 
 	@Override
 	public int ModificarPersona(Persona persona) {
-		
 		String query = "UPDATE Personas SET Nombre = ?, Apellido = ?, Dni = ? WHERE Dni = ?";
         Connection cn = null;
         int filasAfectadas = 0;

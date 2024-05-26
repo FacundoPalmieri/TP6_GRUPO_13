@@ -29,6 +29,7 @@ public class Controlador implements ActionListener  {
 		//Guardo todas las instancias que recibo en el constructor
 		this.ventanaPrincipal = vista;
 		this.personaNegocio = personaNegocio;
+		pnlModificarPersona = new panelModificarPersona();
 		
 		//Eventos menu del Frame principal llamado Ventana
 		this.ventanaPrincipal.getMnAgregar().addActionListener(a->EventoClickMenu_AbrirPanel_AgregarPersona(a));
@@ -121,14 +122,14 @@ public class Controlador implements ActionListener  {
 	
 	public void  EventoClickMenu_AbrirPanel_ModificarPersona(ActionEvent s)
 	{		
-		pnlModificarPersona = new panelModificarPersona();
 		ventanaPrincipal.getContentPane().removeAll();
 		cargarPersonas();
-		pnlModificarPersona.list.setSelectedIndex(0);
-		Persona personaSeleccionada = pnlModificarPersona.list.getSelectedValue();
-		pnlModificarPersona.txtNombre.setText(personaSeleccionada.getNombre());
-		pnlModificarPersona.txtApellido.setText(personaSeleccionada.getApellido());
-		pnlModificarPersona.txtDni.setText(personaSeleccionada.getDni());
+		//pnlModificarPersona.list.setSelectedIndex(0);
+		//Persona personaSeleccionada = null;
+		//Persona personaSeleccionada = pnlModificarPersona.list.getSelectedValue();
+		//pnlModificarPersona.txtNombre.setText(personaSeleccionada.getNombre());
+		//pnlModificarPersona.txtApellido.setText(personaSeleccionada.getApellido());
+		//pnlModificarPersona.txtDni.setText(personaSeleccionada.getDni());
 		pnlModificarPersona.list.addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting()) {
@@ -136,14 +137,21 @@ public class Controlador implements ActionListener  {
                 	pnlModificarPersona.txtNombre.setText(personaSeleccionada.getNombre());
             		pnlModificarPersona.txtApellido.setText(personaSeleccionada.getApellido());
             		pnlModificarPersona.txtDni.setText(personaSeleccionada.getDni());
+            		pnlModificarPersona.btnModificar.addActionListener(new ActionListener() {
+                    	public void actionPerformed(ActionEvent e) {
+                    		modificarPersonaSeleccionada(personaSeleccionada);
+                    	}
+                    });
                 }
             }
         });;
-		pnlModificarPersona.btnModificar.addActionListener(new ActionListener() {
+		/*
+        pnlModificarPersona.btnModificar.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		modificarPersonaSeleccionada(personaSeleccionada);
         	}
-        });
+        });*/
+        
 		ventanaPrincipal.getContentPane().add(pnlModificarPersona);
 		ventanaPrincipal.getContentPane().repaint();
 		ventanaPrincipal.getContentPane().revalidate();
@@ -174,7 +182,7 @@ public class Controlador implements ActionListener  {
 	
 	public void cargarPersonas() {
 		pnlModificarPersona.listModel.clear();
-        ArrayList<Persona> personas = listarPersonas();
+        ArrayList<Persona> personas = personaNegocio.ListarPersonas();
         for (Persona persona : personas) {
         	pnlModificarPersona.listModel.addElement(persona);
         }
